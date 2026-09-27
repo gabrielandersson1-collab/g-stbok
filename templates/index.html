@@ -6,19 +6,33 @@
 <section>
     <h2>Skriv ett inlägg</h2>
     <form action="{{ url_for('submit') }}" method="post">
-        <textarea name="message" rows="3" required></textarea><br>
+        <label for="name">Namn:</label>
+        <input type="text" id="name" name="name" required>
+
+        <label for="message">Meddelande:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+
         <button type="submit">Skicka</button>
     </form>
 </section>
 
 <section>
-    <h2>Inlägg</h2>
+    <h2>Tidigare inlägg ({{ entries|length }})</h2>
+
     {% if entries %}
         {% for entry in entries %}
-            <p>{{ entry }}</p>
+        <article>
+            <div>
+                <strong>{{ entry.name }}</strong>
+                <span>{{ entry.time }}</span>
+            </div>
+
+            <p>{{ entry.message }}</p>
+        </article>
         {% endfor %}
     {% else %}
-        <p>Inga inlägg än.</p>
+        <p>Inga inlägg än. Bli den första att skriva något!</p>
     {% endif %}
 </section>
+
 {% endblock %}
